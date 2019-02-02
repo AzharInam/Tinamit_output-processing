@@ -18,7 +18,7 @@ except OSError:
 
 #El filtrado de los datos de interés variables
 Haveli_Circle = Plotting.leer_datos(nombre='Haveli', archivo=File_dir)
-simulación_datos = Haveli_Circle.leer_csv_data(File_dir, 'Soil salinity Tinamit CropA', 'Watertable depth Tinamit', 'CY CropA')
+simulación_datos = Haveli_Circle.leer_csv_data(File_dir, 'Soil salinity Tinamit CropA', 'Watertable depth Tinamit')
 
 #Sitio de la geografía
 Rechna_Doab = Geografía(nombre='Rechna Doab')
