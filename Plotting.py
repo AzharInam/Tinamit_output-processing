@@ -2,6 +2,7 @@ import os
 import re
 import csv
 import numpy as np
+from tinamit.EnvolturasBF.SAHYSMOD.envoltura import leer_arch_egr
 
 class leer_datos(object):
 
@@ -49,4 +50,24 @@ class leer_datos(object):
             runs[v] = ind_runs
             símismo.min_max_dic.update({v: (np.nanmax(list_max), np.nanmin(list_min))})
         return runs
+
+    def leer_arch_data(símismo, archivo=None, *args):
+
+        if archivo is None:
+            archivo = símismo.archivo
+
+        var_interest = [*args]
+        runs = {}
+        símismo.n_out = [x for x in os.listdir(archivo)]
+        for v in var_interest:
+            ind_runs = {}
+            for i in símismo.n_out:
+                Filepath = os.path.join(archivo, '{}\\{}'.format(i,i))+ '.out'
+                Data = leer_arch_egr(Filepath, n_est = 2, n_p = 215, n_años = 1)
+                value = Data[v]
+                ind_runs[i] = value
+            runs[v] = ind_runs
+
+        return runs
+
 

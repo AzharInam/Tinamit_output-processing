@@ -1,13 +1,14 @@
 import os
 import datetime
 import Plotting
-from tinamit.Geog.Geog import Lugar, Geografía # need to import from tinamit
+from Geog import Lugar, Geografía # need to import from tinamit
+
 
 hoy = datetime.date.today().strftime("%d%m%Y")
 
 #Rutas de acceso de archivo
 base_dir = 'C:\\Users\\Azhar Inam\\PycharmProjects\\Tinamit\\tinamit\\Ejemplos\\en\\Ejemplo_SAHYSMOD\\Shape_files'
-File_dir = 'C:\\Users\\Azhar Inam\\PycharmProjects\\Tinamit\\tinamit\\Ejemplos\\en\\Ejemplo_SAHYSMOD\\Vensim'
+File_dir = 'C:\\Users\\Azhar Inam\\PycharmProjects\\Tinamit_old computer\\tinamit\\Ejemplos\\en\\Ejemplo_SAHYSMOD\\Vensim'
 Map_dir = os.path.join('C:\\Users\\Azhar Inam\\Documents\\Tinamit_maps', 'Scenario_map_{}'.format(hoy))
 try:
     if not os.path.exists(Map_dir):
