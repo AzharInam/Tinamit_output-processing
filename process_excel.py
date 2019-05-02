@@ -1,4 +1,6 @@
 import xlsxwriter
+import csv
+
 '''
 This code is export python data in MS excel. 
 During debugging mode if you want to import your data to see calculations or do some manual checks 
@@ -9,35 +11,63 @@ Click on python consoler of debegging mode.
 import process_excel
 and then write process_excel.process_excel(excel filename, data array name)  
 '''
-def process_excel(Filename, array):
-    """
-    :param Filename: excel file name in string
-    :param array: data array name
-    :return:
-    """
-    workbook = xlsxwriter.Workbook('C:\Sahysmod\debugging_sheets\\'+ Filename)
-    var_list = [x for x,v in array.items()]
-    for i in range(len(var_list)):
-        worksheet = workbook.add_worksheet(var_list[i][:20])
-        Data_list = (array[var_list[i]]).tolist()
-        Data_list.insert(0,var_list[i])
-        col = 0
-        row = 0
-        if len(Data_list)>3:
-            for var in Data_list:
-                worksheet.write(row, col, var)
-                row += 1
-        else:
-            for i in range(len(Data_list)):
-                if i == 0:
-                    for var in Data_list:
-                        worksheet.write(row, col, var)
-                        row += 1
-                        break
-                else:
-                    for var in Data_list[i]:
-                        worksheet.write(row, col, var)
-                        row += 1
-                    col += 1
-                    row = 1
-    workbook.close()
+
+
+class data_process(object):
+
+    def __init__(símismo, nombre):
+        símismo.nombre = nombre
+        símismo.row_count = None
+
+
+    def process_excel(símismo, Filename, array):
+        """
+        :param Filename: excel file name in string
+        :param array: data array name
+        :return:
+        """
+        workbook = xlsxwriter.Workbook('C:\Sahysmod\debugging_sheets\\' + Filename)
+        var_list = [x for x, v in array.items()]
+        for i in range(len(var_list)):
+            worksheet = workbook.add_worksheet(var_list[i][:20])
+            Data_list = (array[var_list[i]]).tolist()
+            Data_list.insert(0, var_list[i])
+            col = 0
+            row = 0
+            if len(Data_list) > 3:
+                for var in Data_list:
+                    worksheet.write(row, col, var)
+                    row += 1
+            else:
+                for i in range(len(Data_list)):
+                    if i == 0:
+                        for var in Data_list:
+                            worksheet.write(row, col, var)
+                            row += 1
+                            break
+                    else:
+                        for var in Data_list[i]:
+                            worksheet.write(row, col, var)
+                            row += 1
+                        col += 1
+                        row = 1
+        workbook.close()
+
+
+    def read_excel(símismo, Datafile):
+
+        Params_var = {}
+        with open(Datafile, 'r') as csvFile:
+
+            Params = csv.DictReader(csvFile)
+            k = 2
+
+            for rows in Params:
+                Mars = {}
+                for i, j in rows.items():
+                    Mars[i] = j
+                Params_var[k] = Mars
+                k = k + 1
+
+        símismo.row_count = k
+        return Params_var
